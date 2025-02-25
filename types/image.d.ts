@@ -6,3 +6,7 @@ declare module "*.webp" {
 declare module "*.ttf" {
   export const value: string;
 }
+
+declare module "*.mp3" {
+  export const value: string;
+}

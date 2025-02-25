@@ -23,7 +23,7 @@ export default function HomeScreen() {
           colors={["rgba(0,0,0,0.7)", "rgba(0,0,0,0.8)"]}
           className="flex-1"
         >
-          <SafeAreaView className="px-1 flex-1 flex justify-between">
+          <SafeAreaView className="px-1 mx-2 my-4 flex-1 flex justify-between">
             <Animated.View
               entering={FadeInDown.delay(300)
                 .mass(0.5)
@@ -45,7 +45,7 @@ export default function HomeScreen() {
                 .springify(20)}
             >
               <CustomButton
-                onPress={() => router.push("/nature-meditate")}
+                onPress={() => router.push("/(tabs)/nature-meditate")}
                 title="Get Started"
               />
             </Animated.View>
