@@ -15,14 +15,23 @@ import CustomButton from "@/components/CustomButton";
 import meditationImage from "@/constants/meditation-images";
 import { MEDITATION_DATA, AUDIO_FILES } from "@/constants/meditation-data";
 import { TimerContext } from "@/context/TimerContext";
+import { isLoaded } from "expo-font";
+import Animated from "react-native-reanimated";
+import LoadingBar from "@/components/LoadingBar";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
 
-  const { duration: secondsRemaining, setDuration } = useContext(TimerContext);
+  const {
+    fallback,
+    duration: secondsRemaining,
+    setDuration,
+  } = useContext(TimerContext);
+
   const [isMediatating, setMeditating] = useState(false);
   const [audioSound, setSound] = useState<Audio.Sound>();
   const [isPlayingAudio, setPlayingAudio] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -48,7 +57,7 @@ const Page = () => {
 
   useEffect(() => {
     return () => {
-      setDuration(10);
+      setDuration(fallback);
       audioSound?.unloadAsync();
     };
   }, [audioSound]);
@@ -76,7 +85,7 @@ const Page = () => {
   };
 
   async function toggleMeditationSessionState() {
-    if (secondsRemaining === 0) setDuration(10);
+    if (secondsRemaining === 0) setDuration(fallback);
     setMeditating(!isMediatating);
     await togglePlaySound();
   }

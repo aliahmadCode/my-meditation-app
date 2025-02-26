@@ -1,6 +1,6 @@
 import AppGradient from "@/components/AppGradient";
 import CustomButton from "@/components/CustomButton";
-import { TimerContext } from "@/context/TimerContext";
+import { TimerContext, TimerContextProps } from "@/context/TimerContext";
 import { AntDesign } from "@expo/vector-icons";
 import { router, useRouter } from "expo-router";
 import React, { useContext } from "react";
@@ -8,12 +8,14 @@ import React, { useContext } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 
 export default function AdjustMeditationduration() {
-  const { setDuration } = useContext(TimerContext);
+  const { setFallback, setDuration } = useContext(TimerContext);
 
   const handlePress = (duration: number) => {
+    setFallback(duration);
     setDuration(duration);
     router.back();
   };
+
   const router = useRouter();
   return (
     <View className="flex-1 relative">

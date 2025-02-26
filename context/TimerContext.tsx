@@ -6,14 +6,18 @@ import {
   useState,
 } from "react";
 
-interface TimerContextProps {
-  duration: number;
+export interface TimerContextProps {
+  duration: number | undefined;
+  fallback: number | undefined;
   setDuration: Dispatch<SetStateAction<number>>;
+  setFallback: Dispatch<SetStateAction<number>>;
 }
 
 export const TimerContext = createContext<TimerContextProps>({
-  duration: 10,
+  duration: undefined,
   setDuration: () => { },
+  fallback: undefined,
+  setFallback: () => { },
 });
 
 interface TimerProviderProps {
@@ -21,9 +25,12 @@ interface TimerProviderProps {
 }
 
 export const TimerProvider = ({ children }: TimerProviderProps) => {
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(10);
+  const [fallback, setFallback] = useState(10);
   return (
-    <TimerContext.Provider value={{ duration, setDuration }}>
+    <TimerContext.Provider
+      value={{ duration, setDuration, fallback, setFallback }}
+    >
       {children}
     </TimerContext.Provider>
   );

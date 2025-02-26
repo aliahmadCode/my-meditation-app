@@ -6,7 +6,7 @@ import {
   Pressable,
   ImageBackground,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import AppGradient from "@/components/AppGradient";
@@ -14,8 +14,10 @@ import { MEDITATION_DATA } from "@/constants/meditation-data";
 import meditationImages from "@/constants/meditation-images";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { TimerContext } from "@/context/TimerContext";
 
 export default function natureMeditate() {
+  const { fallback, setDuration } = useContext(TimerContext);
   const router = useRouter();
   return (
     <View className="flex-1">
@@ -40,6 +42,7 @@ export default function natureMeditate() {
             renderItem={({ item }) => (
               <Pressable
                 onPress={() => {
+                  setDuration(fallback);
                   router.push(`/meditate/${item.id}`);
                 }}
                 className="h-48 my-3 rounded-md overflow-hidden"
